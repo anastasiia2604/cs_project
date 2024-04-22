@@ -89,10 +89,10 @@ def main_menu():
         menu_mouse = pygame.mouse.get_pos()
 
         #button for practical 3:
-        practical3_button = Button(391, 285, 579, 77, 'main_code/rp3b1.png', 'main_code/rp3b2.png')
+        practical3_button = Button(391, 285, 579, 77, 'rp3b1.png', 'rp3b2.png')
     
         #button for practical 7:
-        practical7_button = Button(391, 397, 579, 77, 'main_code/rp7b1.png', 'main_code/rp7b2.png')
+        practical7_button = Button(391, 397, 579, 77, 'rp7b1.png', 'rp7b2.png')
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -106,7 +106,7 @@ def main_menu():
                     practical7()
 
         screen.blit(surface,(0,0))
-        menu = pygame.image.load('main_code/menu.png')
+        menu = pygame.image.load('menu.png')
         screen.blit(menu, (34, 36))
 
         for object in objects:
@@ -124,9 +124,9 @@ def practical3():
     #matplotlib.pyplot.table(cellText=None, cellColours=None, cellLoc='center', colWidths=15, rowLabels=None, rowColours=None, rowLoc='center', colLabels=[], colColours=None, colLoc='center', loc='bottom', bbox=None, edges='closed', **kwargs)
 
     while True:
-        back_button = Button(1183, 36, 157, 62, 'main_code/back_button1.png', 'main_code/back_button2.png')
+        back_button = Button(1183, 36, 157, 62, 'back_button1.png', 'back_button2.png')
 
-        start_button = Button(493, 597, 202, 37, 'main_code/start_button1.png', 'main_code/start_button2.png')
+        start_button = Button(493, 597, 202, 37, 'start_button1.png', 'start_button2.png')
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -137,13 +137,13 @@ def practical3():
 
         screen.blit(surface,(0,0))
 
-        practical3_image = pygame.image.load('main_code/practical3.png')
+        practical3_image = pygame.image.load('practical3.png')
         screen.blit(practical3_image, (15, 22))
 
-        practical3_conditions = pygame.image.load('main_code/practical3_conditions.png')
+        practical3_conditions = pygame.image.load('practical3_conditions.png')
         screen.blit(practical3_conditions, (40, 251))
 
-        practical3_notes = pygame.image.load('main_code/practical3_notes.png')
+        practical3_notes = pygame.image.load('practical3_notes.png')
         screen.blit(practical3_notes, (935, 118))
 
         screen.blit(solution.surf, solution.rect)
@@ -161,7 +161,7 @@ def practical7():
     objects = []
     surface.fill((91, 151, 207))
     while True:
-        back_button = Button(1183, 36, 157, 62, 'main_code/back_button1.png', 'main_code/back_button2.png')
+        back_button = Button(1183, 36, 157, 62, 'back_button1.png', 'back_button2.png')
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -171,7 +171,7 @@ def practical7():
         solution = Solution()
 
         screen.blit(surface,(0,0))
-        practical7_image = pygame.image.load('main_code/practical7.png')
+        practical7_image = pygame.image.load('practical7.png')
         screen.blit(practical7_image, (15, 22))
         screen.blit(solution.surf, solution.rect)
 
