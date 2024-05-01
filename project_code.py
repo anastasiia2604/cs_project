@@ -2,7 +2,7 @@ import sys
 from sys import exit
 import pygame
 from pygame.locals import *
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 pygame.init()
 
