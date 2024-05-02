@@ -41,13 +41,6 @@ class Button():
         if self.button_rect.collidepoint(mouse_pos):
             self.button_size = pygame.transform.scale(self.button_image2, (self.width, self.height))
             self.button_placing = surface.blit(self.button_image2, (self.x, self.y))
-            if pygame.mouse.get_pressed()[0]:
-                self.pressed = True
-                stop = True
-                pratical3()
-            else:
-                if self.pressed == True:
-                    self.pressed = False
         else:
             self.button_size = pygame.transform.scale(self.button_image1, (self.width, self.height))
             self.button_placing = surface.blit(self.button_image1, (self.x, self.y))
@@ -63,50 +56,62 @@ class Solution:
         self.solution_height = 150
         self.height = self.solution_height + 200
 
+        self.red = 0
+        self.green = 0
+        self.blue = 255
+
         self.surface = pygame.surface.Surface((280, self.solution_height))
-        self.surface.fill((0,0,255))
+        self.surface.fill((self.red, self.green, self.blue))
         self.surf = self.surface.convert_alpha()
         self.surf.set_alpha(15)
 
         self.rect = self.surf.get_rect(
             topleft = (540, self.height)
         )
+        
     
     def draw_beaker():
         pygame.draw.line(surface, (0,0,0), [540, 500], [540, 200])
         pygame.draw.line(surface, (0,0,0), [820, 500], [820, 200])
         pygame.draw.line(surface, (0,0,0), [540, 500], [820, 500])
 
-    #def draw_solution(self):
-        
-
     def draw_solution_border(self):
         pygame.draw.line(surface, 'white', (540, self.height+1), (820, self.height+1))
 
+    def colour_change():
+        for i in range(256):
+            self.red += i
+            self.green += i
+            self.surface.fill((self.red, self.green, self.blue))
+
+
+
+
+
 def main_menu():
+    objects.clear()
+    surface.fill((91, 151, 207))
+
+    #button for practical 3:
+    practical3_button = Button(391, 285, 579, 77, 'main_code/rp3b1.png', 'main_code/rp3b2.png')
     
+    #button for practical 7:
+    practical7_button = Button(391, 397, 579, 77, 'main_code/rp7b1.png', 'main_code/rp7b2.png')
     while True:
-        menu_mouse = pygame.mouse.get_pos()
-
-        #button for practical 3:
-        practical3_button = Button(391, 285, 579, 77, 'rp3b1.png', 'rp3b2.png')
-    
-        #button for practical 7:
-        practical7_button = Button(391, 397, 579, 77, 'rp7b1.png', 'rp7b2.png')
-
+        mouse = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if practical3_button.check_for_input(menu_mouse):
+                if practical3_button.check_for_input(mouse):
                     practical3()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if practical7_button.check_for_input(menu_mouse):
+                if practical7_button.check_for_input(mouse):
                     practical7()
 
         screen.blit(surface,(0,0))
-        menu = pygame.image.load('menu.png')
+        menu = pygame.image.load('main_code/menu.png')
         screen.blit(menu, (34, 36))
 
         for object in objects:
@@ -115,35 +120,38 @@ def main_menu():
         clock.tick(60)
 
 def practical3():
-    objects = []
+    objects.clear()
     surface.fill((91, 151, 207))
 
     pygame.draw.line(surface, (0,0,0), [640, 450], [720, 370])
     pygame.draw.line(surface, (0,0,0), [640, 370], [720, 450])
 
-    #matplotlib.pyplot.table(cellText=None, cellColours=None, cellLoc='center', colWidths=15, rowLabels=None, rowColours=None, rowLoc='center', colLabels=[], colColours=None, colLoc='center', loc='bottom', bbox=None, edges='closed', **kwargs)
+    back_button = Button(1183, 36, 122, 37, 'main_code/back_button1.png', 'main_code/back_button2.png')
+
+    start_button = Button(493, 597, 202, 37, 'main_code/start_button1.png', 'main_code/start_button2.png')
 
     while True:
-        back_button = Button(1183, 36, 157, 62, 'back_button1.png', 'back_button2.png')
-
-        start_button = Button(493, 597, 202, 37, 'start_button1.png', 'start_button2.png')
-
+        solution = Solution()
+        mouse = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-
-        solution = Solution()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if back_button.check_for_input(mouse):
+                    main_menu()
+                if start_button.check_for_input(mouse):
+                    solution.colour_change
 
         screen.blit(surface,(0,0))
 
-        practical3_image = pygame.image.load('practical3.png')
+        practical3_image = pygame.image.load('main_code/practical3.png')
         screen.blit(practical3_image, (15, 22))
 
-        practical3_conditions = pygame.image.load('practical3_conditions.png')
+        practical3_conditions = pygame.image.load('main_code/practical3_conditions.png')
         screen.blit(practical3_conditions, (40, 251))
 
-        practical3_notes = pygame.image.load('practical3_notes.png')
+        practical3_notes = pygame.image.load('main_code/practical3_notes.png')
         screen.blit(practical3_notes, (935, 118))
 
         screen.blit(solution.surf, solution.rect)
@@ -151,28 +159,44 @@ def practical3():
         Solution().draw_solution_border()
         Solution.draw_beaker()
 
-
         for object in objects:
             object.process()
         pygame.display.update()
         clock.tick(60)
 
 def practical7():
-    objects = []
+    objects.clear()
     surface.fill((91, 151, 207))
-    while True:
-        back_button = Button(1183, 36, 157, 62, 'back_button1.png', 'back_button2.png')
 
+    back_button = Button(1183, 36, 122, 37, 'main_code/back_button1.png', 'main_code/back_button2.png')
+
+    start_button = Button(493, 597, 202, 37, 'main_code/start_button1.png', 'main_code/start_button2.png')
+
+    while True:
+        mouse = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if back_button.check_for_input(mouse):
+                    main_menu()
 
         solution = Solution()
 
         screen.blit(surface,(0,0))
-        practical7_image = pygame.image.load('practical7.png')
+        practical7_image = pygame.image.load('main_code/practical7.png')
         screen.blit(practical7_image, (15, 22))
+
+        practical7_conditions = pygame.image.load('main_code/practical7_conditions.png')
+        screen.blit(practical7_conditions, (29, 246))
+
+        practical7_equations = pygame.image.load('main_code/practical7_equations.png')
+        screen.blit(practical7_equations, (894, 76))
+
+        practical7_notes = pygame.image.load('main_code/practical7_notes.png')
+        screen.blit(practical7_notes, (916, 207))
+
         screen.blit(solution.surf, solution.rect)
 
         Solution().draw_solution_border()
@@ -183,8 +207,10 @@ def practical7():
         pygame.display.update()
         clock.tick(60)
 
-main_menu()
+#def simulation3():
 
+
+main_menu()
 
 
 
